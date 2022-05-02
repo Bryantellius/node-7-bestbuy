@@ -1,9 +1,10 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import apiRouter from "./routes";
+import router from "./routes";
 import config from "./config";
 import { errorHandler } from "./middlewares/errorHandler";
+import { join } from "path";
 
 const app = express();
 
@@ -30,7 +31,7 @@ app.use(express.static("public"));
 /**
  * Directs all routes starting with /api to the top level api express router
  */
-app.use("/api", apiRouter);
+app.use("/api", router);
 
 /**
  * Sends the react app index.html for page requests

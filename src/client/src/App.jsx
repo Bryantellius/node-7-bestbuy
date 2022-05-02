@@ -1,33 +1,18 @@
-import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Sales from "./pages/sales";
+import Home from "./pages/index";
+import Product from "./pages/product";
 
-function App() {
-  let [testState, setTestState] = useState(null);
-
-  useEffect(() => {
-    fetch("http://localhost:8080/api/test")
-      .then((res) => res.text())
-      .then((msg) => setTestState(msg))
-      .catch((err) => {
-        console.error(err);
-        setTestState("Could not connect to test api endpoint :(");
-      });
-  }, [testState]);
-
+const App = () => {
   return (
-    <div className="App">
-      <header>
-        <h1>Basic Mern Starter Template</h1>
-        <hr />
-        {testState ? (
-          <p>
-            API Working {Boolean(testState).toString()}; Test State: {testState}
-          </p>
-        ) : (
-          <p>Loading...</p>
-        )}
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sales" element={<Sales />} />
+        <Route path="/products/:ProductID" element={<Product />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
